@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="base::header"></div>
+    <title>Show Car</title>
+
+</head>
+
+<body>
+<div th:replace="base::nav"></div>
+
+<!--
+private String make;
+private String model;
+private int year;
+private double msrp;//manufacturer's suggested retail price
+private String picturePath;
+
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "category_id", referencedColumnName="id")
+private Category category;
+-->
+<div align="center" class="container">
+    <div class="jumbotron lead">
+        <h2 align="center">Car Details</h2>
+    </div>
+    <table class="table">
+        <tr>
+            <td>Category:</td>
+            <td><span th:text="${car.category.name}"></span></td>
+        </tr>
+        <tr>
+            <td>Make:</td>
+            <td><span th:text="${car.make}"></span></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><span th:text="${car.model}"></span></td>
+        </tr>
+        <tr>
+            <td>Year:</td>
+            <td><span th:text="${car.year}"></span></td>
+        </tr>
+        <tr>
+            <td>MSRP $:</td>
+            <td><span th:text="${car.msrp}"></span></td>
+        </tr>
+        <tr>
+            <td>Picture:</td>
+            <td><img class ="profile-picture" th:src="${car.picturePath}" th:alt = "Picture"> <!-- th:text="${car.picturePath}" --><td>
+        </tr>
+    </table>
+    <a th:href="@{/delete/{id}(id=${car.id})}">Delete this Car</a>
+</div>
+
+<div th:replace="base::footer"></div>
+</body>
+</html>

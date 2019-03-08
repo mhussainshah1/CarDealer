@@ -1,0 +1,34 @@
+/** { !*all*!
+    border: 1px solid red !important;
+}*/
+
+.blog-date {
+    font-style: italic;
+}
+
+/*h1, h2, h3, h4 { !*element*!
+    text-decoration: underline;
+    font-family: 'Felipa', 'Dancing Script', cursive;
+
+}*/
+
+#heading { /*id*/
+
+}
+
+/*profile.html*/
+.icon { /*class*/
+    width: 42px;
+    height: 42px;
+    border: 0;
+}
+
+.profile-picture {
+    width: 350px;
+    height: 350px;
+    border: 0;
+}
+
+/*body {
+    background-image: url("/img/bgimage.jpg");
+}*/
