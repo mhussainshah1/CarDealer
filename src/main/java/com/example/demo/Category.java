@@ -2,26 +2,25 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Category {
+
+    @OneToMany(mappedBy = "category")
+    public Set<Car> cars;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    //@NotNull
-    private String name;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Car> cars;
+    @NotNull
+    @Size(min = 4)
+    @Column(unique = true)
+    private String title;
 
     public Category() {
-    }
-
-    public Category(String name, Set<Car> cars) {
-        this.name = name;
-        this.cars = cars;
+        cars = new HashSet<>();
     }
 
     public long getId() {
@@ -32,12 +31,12 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Set<Car> getCars() {
@@ -46,5 +45,14 @@ public class Category {
 
     public void setCars(Set<Car> cars) {
         this.cars = cars;
+    }
+
+    @Override
+    public String toString() {
+        String string = "Name = " + title;
+        for (Car car : cars) {
+            string += "\nCar - = [" + car.toString() +"]";
+        }
+        return string;
     }
 }

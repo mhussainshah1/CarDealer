@@ -1,53 +1,43 @@
 package com.example.demo;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //@NotNull
+    @NotNull
+    @Size(min=4)
     private String make;
 
-    //@NotNull
+    @NotNull
+    @Size(min=3)
     private String model;
 
-    //@Max(2019)
+    @NotNull
     private int year;
 
-    //@Min(0)
-    private double msrp;//manufacturer's suggested retail price
+    @NotNull
+    @Size(min=10)
+    private String description;
 
-    //@NotNull
+    @NotNull
+    @Min(3)
+    private double price;
+
+    @NotNull
     private String picturePath;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", referencedColumnName="id")
+    @ManyToOne
     private Category category;
 
     public Car() {
-    }
-
-    public Car(String make, String model, int year, double msrp, String picturePath) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.msrp = msrp;
-        this.picturePath = picturePath;
-    }
-
-    public Car(String make, String model, int year, double msrp, String picturePath, Category category) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.msrp = msrp;
-        this.picturePath = picturePath;
-        this.category = category;
     }
 
     public long getId() {
@@ -82,12 +72,20 @@ public class Car {
         this.year = year;
     }
 
-    public double getMsrp() {
-        return msrp;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMsrp(double msrp) {
-        this.msrp = msrp;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getPicturePath() {
@@ -104,5 +102,17 @@ public class Car {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        String string = "Make = " + make +
+                "\nModel =" + model +
+                "\nYear = " + year +
+                "\nDescription = "+ description +
+                "\nPrice = " + price +
+                "\nPicture Path = " + picturePath+
+                "\nCategory = "+category.getTitle();
+        return  string;
     }
 }

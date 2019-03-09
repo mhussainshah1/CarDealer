@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="base::header"></div>
+    <title>List</title>
+</head>
+<body>
+<div th:replace="base::nav"></div>
+<br/>
+<div class="container-float" align="center">
+    <div class="jumbotron lead">
+        <h2 align="center"> Thrifty Car Dealer </h2>
+    </div>
+    <table class="table table-striped" style="width:100%">
+        <thead class="thead-light">
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th>Picture</th>
+                <th>Category</th>
+                <th>To Do</th>
+            </tr>
+        </thead>
+        <tr th:each="car : ${cars}">
+            <td><a th:href="@{/detail/{id}(id=${car.id})}">[[${car.make}]]</a></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.year}"></td>
+            <td th:text="${car.price}"></td>
+            <td><img class ="icon" th:src="${car.picturePath}" alt="Picture"></td>
+            <td th:text="${car.category.title}"></td>
+            <td>
+                <a th:href="@{/update/{id}(id=${car.id})}">Edit</a> -
+                <a th:href="@{/delete/{id}(id=${car.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div th:replace="base::footer"></div>
+</body>
+</html>

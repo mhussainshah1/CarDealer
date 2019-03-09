@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="base::header"></div>
+    <title>Show</title>
+</head>
+<body>
+<div th:replace="base::nav"></div>
+
+<div class="container" align="center">
+    <table class="table">
+        <tr>
+            <td>Category:</td>
+            <td><span th:text="${car.category.title}"></span></td>
+        </tr>
+        <tr>
+            <td>Make:</td>
+            <td><span th:text="${car.make}"></span></td>
+        </tr>
+        <tr>
+            <td>Model: </td>
+            <td><span th:text="${car.model}"></span></td>
+        </tr>
+        <tr>
+            <td>Year: </td>
+            <td><span th:text="${car.year}"></span></td>
+        </tr>
+        <tr>
+            <td>Description :</td>
+            <td><p th:text="${car.description}"></p></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><span th:text="${car.price}"></span><br/></td>
+        </tr>
+        <tr>
+            <td>Picture:</td>
+            <td><img class ="profile-picture"
+                     th:src="${car.picturePath}"
+                     th:alt = "Picture"> <!-- th:text="${message.picturePath}" --><td>
+        </tr>
+    </table>
+    <a th:href="@{/delete/{id}(id=${car.id})}">Delete this car</a>
+</div>
+
+<div th:replace="base::footer"></div>
+</body>
+</html>
