@@ -31,7 +31,8 @@ public class Car {
     @Min(3)
     private double price;
 
-    @NotNull
+    //@NotNull
+    //@Size(min = 4)
     private String picturePath;
 
     @ManyToOne
@@ -106,13 +107,13 @@ public class Car {
 
     @Override
     public String toString() {
-        String string = "Make = " + make +
-                "\nModel =" + model +
-                "\nYear = " + year +
-                "\nDescription = "+ description +
-                "\nPrice = " + price +
-                "\nPicture Path = " + picturePath+
-                "\nCategory = "+category.getTitle();
+        String string = "Make = [" + make +
+                ",Model =" + model +
+                ",Year = " + year +
+                ",Description = "+ description +
+                ",Price = " + price +
+                ",Picture Path = " + picturePath+
+                ",Category = "+category.getTitle()+"]";
         return  string;
     }
 }

@@ -28,7 +28,7 @@
             <td th:text="${car.model}"></td>
             <td th:text="${car.year}"></td>
             <td th:text="${car.price}"></td>
-            <td><img class ="icon" th:src="${car.picturePath}" alt="Picture"></td>
+            <td><img th:src="${car.picturePath}" alt="Picture"></td>
             <td th:text="${car.category.title}"></td>
             <td>
                 <a th:href="@{/update/{id}(id=${car.id})}">Edit</a> -

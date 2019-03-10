@@ -42,10 +42,10 @@
                           th:if="${#fields.hasErrors('description')}"></span></td>
             </tr>
             <tr>
-                <td><label for="price">MRSP :</label></td>
+                <td><label for="price">MRSP :$</label></td>
                 <td><input id="price" th:field="*{price}" type="text"/></td>
                 <td><span th:errors="*{price}"
-                          th:if="${#fields.hasErrors('price')}"></span><br/></td>
+                          th:if="${#fields.hasErrors('price')}"></span></td>
             </tr>
             <tr>
                 <td><label for="category">Category:</label></td>
@@ -55,7 +55,8 @@
                     </option>
                 </select>
                 </td>
-                <td></td>
+                <td><span th:errors="*{category}"
+                          th:if="${#fields.hasErrors('category')}"></span></td>
             </tr>
             <tr>
                 <td> Upload Image:</td>
@@ -64,11 +65,11 @@
                     <input name="file" type="file"/>
                     <!--</span>-->
                 </td>
-                <td>[[${car.picturePath}]]</td>
+                <td></td>
             </tr>
-            <tr> <!--th:if="*{picturePath} != null">-->
+            <tr th:if="*{picturePath} != null">
                 <td><input th:field="*{picturePath}" type="hidden"></td>
-                <td><img alt="Picture" class="profile-picture" th:src="*{picturePath}"/><br/></td>
+                <td><img alt="Picture" class="profile-picture" th:src="*{picturePath}"/> <!--[[${car.picturePath}]]--></td>
                 <td><span th:errors="*{picturePath}" th:if="${#fields.hasErrors('picturePath')}"></span></td>
             </tr>
             <tr>

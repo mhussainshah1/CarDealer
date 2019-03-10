@@ -33,6 +33,53 @@ public class CloudinaryConfig {
         }
     }
 
+    /**
+     * This method generates the URL for the actor's list
+     */
+    public String createUrl(String name) {
+        return cloudinary
+                .url()
+                .transformation(new Transformation()
+                        .width(100)
+                        .height(100)
+                        .crop("fill")
+                        .radius(50)
+                        .gravity("face"))
+                .generate(name);
+    }
+
+    /**
+     * This method generates the URL for an image whose name is known and has been provided
+     */
+    public String createUrl(String name, int width, int height) {
+        return cloudinary
+                .url()
+                .transformation(new Transformation()
+                        .width(width)
+                        .height(height)
+                        .crop("fill")
+                        .radius(50)
+                        .gravity("face"))
+                .generate(name);
+
+    }
+
+    /**
+     * Creates a transformation from the URL provided
+     */
+    public String createSmallImage(String url, int width, int height) {
+        return cloudinary
+                .url()
+                .transformation(new Transformation()
+                        .width(width)
+                        .height(height)
+                        .crop("fill")
+                        .radius(50)
+                        .gravity("face"))
+                .type("fetch").generate(url);
+
+    }
+
     public String createUrl(String name, int width, int height, String action){
         return cloudinary
                 .url()

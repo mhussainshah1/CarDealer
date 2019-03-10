@@ -64,6 +64,7 @@ public class HomeController {
             model.addAttribute("categories", categoryRepository.findAll());
             return "carform";
         }
+
         Map uploadResult;
         try {
             uploadResult = cloudc.upload(
@@ -73,8 +74,16 @@ public class HomeController {
             model.addAttribute("categories", categoryRepository.findAll());
             return "redirect:/carform";
         }
-        String url = uploadResult.get("url").toString();
-        car.setPicturePath(url);
+
+        String uploadURL = uploadResult.get("url").toString();
+        String uploadedName = uploadResult.get("public_id").toString();
+        String transformedImage = cloudc.createUrl(uploadedName,150,150);
+
+        System.out.println("Uploaded Url:" + uploadURL);
+        System.out.println("Uploaded File Name:" + uploadedName);
+        System.out.println("Transformed Url:" + transformedImage);
+
+        car.setPicturePath(transformedImage);
         carRepository.save(car);
         return "redirect:/";
     }
@@ -90,6 +99,9 @@ public class HomeController {
                                  BindingResult result,
                                  Model model){
         if(result.hasErrors()){
+            for (ObjectError e : result.getAllErrors()){
+                System.out.println(e);
+            }
             return "category";
         }
         if(categoryRepository.findByTitle(category.getTitle()) != null){

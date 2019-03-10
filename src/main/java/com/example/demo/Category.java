@@ -11,9 +11,11 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     public Set<Car> cars;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotNull
     @Size(min = 4)
     @Column(unique = true)
@@ -51,7 +53,7 @@ public class Category {
     public String toString() {
         String string = "Name = " + title;
         for (Car car : cars) {
-            string += "\nCar - = [" + car.toString() +"]";
+            string += "\nCar - = " + car.toString();
         }
         return string;
     }
