@@ -27,7 +27,7 @@ public class HomeController {
     CloudinaryConfig cloudc;
 
     @RequestMapping("/")
-    public String listCourses(Model model){
+    public String listCars(Model model){
         model.addAttribute("cars", carRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         return "list";
@@ -79,10 +79,6 @@ public class HomeController {
         String uploadedName = uploadResult.get("public_id").toString();
         String transformedImage = cloudc.createUrl(uploadedName,150,150);
 
-        System.out.println("Uploaded Url:" + uploadURL);
-        System.out.println("Uploaded File Name:" + uploadedName);
-        System.out.println("Transformed Url:" + transformedImage);
-
         car.setPicturePath(transformedImage);
         carRepository.save(car);
         return "redirect:/";
@@ -90,6 +86,7 @@ public class HomeController {
 
     @GetMapping("/addcategory")
     public String categoryForm(Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("category", new Category());
         return "category";
     }
@@ -114,27 +111,37 @@ public class HomeController {
     }
 
     @RequestMapping("/detail/{id}")
-    public String showCourse(@PathVariable("id") long id, Model model){
+    public String showCar(@PathVariable("id") long id, Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("car", carRepository.findById(id).get());
         return "show";
     }
 
     @RequestMapping("/update/{id}")
-    public String updateCourse(@PathVariable("id") long id, Model model){
+    public String updateCar(@PathVariable("id") long id, Model model){
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("car", carRepository.findById(id).get());
         return "carform";
     }
 
     @RequestMapping("/delete/{id}")
-    public String delCourse(@PathVariable("id") long id){
+    public String delCar(@PathVariable("id") long id){
         carRepository.deleteById(id);
         return "redirect:/";
     }
 
     @RequestMapping("/about")
-    public String getAbout() {
+    public String getAbout(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
         return "about";
+    }
+
+    @RequestMapping("/detailcategory/{id}")
+    public String showCarsByCategory(@PathVariable("id") long id, Model model){
+        model.addAttribute("cars", carRepository.findAllByCategory_Id(id));
+        model.addAttribute("category", categoryRepository.findById(id).get());
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "categorylist";
     }
 
     @PostConstruct
