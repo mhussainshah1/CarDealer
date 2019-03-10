@@ -43,7 +43,7 @@
             </tr>
             <tr>
                 <td><label for="price">MRSP :$</label></td>
-                <td><input id="price" th:field="*{price}" type="text"/></td>
+                <td><input id="price" th:field="*{price}" type="number"/></td>
                 <td><span th:errors="*{price}"
                           th:if="${#fields.hasErrors('price')}"></span></td>
             </tr>

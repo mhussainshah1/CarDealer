@@ -146,7 +146,7 @@ public class HomeController {
 
     @PostConstruct
     public void fillTables(){
-        Category category = new Category();
+       /* Category category = new Category();
         category.setTitle("Compact");
         categoryRepository.save(category);
 
@@ -160,7 +160,7 @@ public class HomeController {
 
         category = new Category();
         category.setTitle("Luxury");
-        categoryRepository.save(category);
+        categoryRepository.save(category);*/
     }
 }
 
