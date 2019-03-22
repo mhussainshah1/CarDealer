@@ -9,9 +9,6 @@ import java.util.Set;
 @Entity
 public class Category {
 
-    @OneToMany(mappedBy = "category")
-    public Set<Car> cars;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -21,9 +18,18 @@ public class Category {
     @Column(unique = true)
     private String title;
 
+    @OneToMany(mappedBy = "category")
+    public Set<Car> cars;
+
     public Category() {
         cars = new HashSet<>();
     }
+
+    public Category(@NotNull @Size(min = 4) String title) {
+        this();
+        this.title = title;
+    }
+
 
     public long getId() {
         return id;

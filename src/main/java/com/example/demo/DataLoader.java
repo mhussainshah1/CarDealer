@@ -14,26 +14,30 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    CarRepository carRepository;
+
     @Override
     public void run(String... args) throws Exception {
-/*       Set<Car> cars = new HashSet<>();
-        Car car = new Car("Nissan","Alto",2008, 20000,"/img/nissan-suv.png");
-        cars.add(car);
-        Category category = new Category("SUV",cars);
+        Category category = new Category("S-U-V");
+        Car car = new Car("Nissan","Alto",2008, "35 miles/gallon",20000,"https://res.cloudinary.com/mhussainshah1/image/upload/c_fill,g_face,h_150,r_50,w_150/v1553093077/java-bootcamp/nsgop8vivttqeqkkkynr.jpg",category);
+        category.getCars().add(car);
         categoryRepository.save(category);
+        carRepository.save(car);
 
-        cars = new HashSet<>();
-        car = new Car("Honda","Accord",2019,45000.55,"/img/2018-Honda-accord.jpg");
-        cars.add(car);
-        car = new Car("Toyota","Camry",2018,32000.02,"/img/2018-Toyota-Camry.png");
-        cars.add(car);
-        category = new Category("Full Size", cars);
+        category = new Category("Full Size");
+        Car car1 = new Car("Honda","Accord",2019,"35 miles/gallon",45000.55,"https://res.cloudinary.com/mhussainshah1/image/upload/c_fill,g_face,h_150,r_50,w_150/v1552081999/java-bootcamp/bo1q7fwi8qytkxi6yyus.jpg",category);
+        category.getCars().add(car1);
+        Car car2 = new Car("Toyota","Camry",2018,"35 miles/gallon",32000.02,"https://res.cloudinary.com/mhussainshah1/image/upload/c_fill,g_face,h_150,r_50,w_150/v1552100700/java-bootcamp/mj2tywvdhsq0mleow3rp.png",category);
+        category.getCars().add(car2);
         categoryRepository.save(category);
+        carRepository.save(car1);
+        carRepository.save(car2);
 
-        cars = new HashSet<>();
-        car = new Car("Mercedez","Benz",2019, 50000.85,"/img/mercedes-benz.png");
-        cars.add(car);
-        category = new Category("Luxury", cars);
-        categoryRepository.save(category);*/
+        category = new Category("Luxury");
+        car = new Car("Mercedez","Benz",2019,"35 miles/gallon", 50000.85,"https://res.cloudinary.com/mhussainshah1/image/upload/c_fill,g_face,h_150,r_50,w_150/v1552162481/java-bootcamp/klztzsqldrhak8lvs7zu.png",category);
+        category.getCars().add(car);
+        categoryRepository.save(category);
+        carRepository.save(car);
     }
 }

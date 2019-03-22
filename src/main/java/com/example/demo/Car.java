@@ -39,7 +39,19 @@ public class Car {
     private Category category;
 
     public Car() {
+
     }
+
+    public Car(@NotNull @Size(min = 4) String make, @NotNull @Size(min = 3) String model, @NotNull int year, @NotNull @Size(min = 10) String description, @NotNull @Min(3) double price, String picturePath, Category category) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.description = description;
+        this.price = price;
+        this.picturePath = picturePath;
+        this.category = category;
+    }
+
 
     public long getId() {
         return id;
