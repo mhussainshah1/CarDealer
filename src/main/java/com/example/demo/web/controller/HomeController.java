@@ -3,9 +3,11 @@ package com.example.demo.web.controller;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.demo.business.entities.Car;
 import com.example.demo.business.entities.Category;
+import com.example.demo.business.entities.User;
+import com.example.demo.business.service.UserService;
 import com.example.demo.business.entities.repositories.CarRepository;
 import com.example.demo.business.entities.repositories.CategoryRepository;
-import com.example.demo.business.entities.service.CloudinaryConfig;
+import com.example.demo.business.service.CloudinaryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +33,45 @@ public class HomeController {
     @Autowired
     CloudinaryConfig cloudc;
 
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/register")
+    public String showRegistrationPage(Model model){
+        model.addAttribute("user",new User());
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, @RequestParam("password") String pw){
+        System.out.println("pw: " + pw);
+        if(result.hasErrors()){
+//            model.addAttribute("user", user);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "register";
+        } else {
+            user.encode(pw);
+            userService.saveUser(user);
+            model.addAttribute("message", "New User Account Created");
+        }
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "login";
+    }
+
+
     @RequestMapping("/")
     public String listCars(Model model){
         model.addAttribute("cars", carRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
+        if(userService.getUser() != null){
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
         return "list";
     }
 
@@ -85,6 +122,7 @@ public class HomeController {
         String transformedImage = cloudc.createUrl(uploadedName,150,150);
 
         car.setPicturePath(transformedImage);
+        car.setUser(userService.getUser());
         carRepository.save(car);
         return "redirect:/";
     }
@@ -139,6 +177,16 @@ public class HomeController {
     public String getAbout(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         return "about";
+    }
+
+    @GetMapping("/termsandconditions")
+    public String getTermsAndCondition(){
+        return "termsandconditions";
+    }
+
+    @PostMapping("/forgot-password")
+    public String forgetPassword(){
+        return "/";
     }
 
     @RequestMapping("/detailcategory/{id}")

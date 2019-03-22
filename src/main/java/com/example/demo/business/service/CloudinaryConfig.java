@@ -1,4 +1,4 @@
-package com.example.demo.business.entities.service;
+package com.example.demo.business.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;

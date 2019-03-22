@@ -38,6 +38,10 @@ public class Car {
     @ManyToOne
     private Category category;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Car() {
 
     }
@@ -127,5 +131,13 @@ public class Car {
                 ",Picture Path = " + picturePath+
                 ",Category = "+category.getTitle()+"]";
         return  string;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
