@@ -1,8 +1,7 @@
-package com.example.demo;
+package com.example.demo.business.entities.repositories;
 
+import com.example.demo.business.entities.Category;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.Optional;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
   Category findByTitle(String category_title);

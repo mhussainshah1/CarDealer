@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.business.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

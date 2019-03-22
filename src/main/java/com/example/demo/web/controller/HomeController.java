@@ -1,6 +1,11 @@
-package com.example.demo;
+package com.example.demo.web.controller;
 
 import com.cloudinary.utils.ObjectUtils;
+import com.example.demo.business.entities.Car;
+import com.example.demo.business.entities.Category;
+import com.example.demo.business.entities.repositories.CarRepository;
+import com.example.demo.business.entities.repositories.CategoryRepository;
+import com.example.demo.business.entities.service.CloudinaryConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,12 +1,13 @@
-package com.example.demo;
+package com.example.demo.business.entities.service;
 
 //change image folder path to cloudinary
+import com.example.demo.business.entities.Car;
+import com.example.demo.business.entities.Category;
+import com.example.demo.business.entities.repositories.CarRepository;
+import com.example.demo.business.entities.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner {
