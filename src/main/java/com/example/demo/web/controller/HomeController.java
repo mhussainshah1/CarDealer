@@ -16,7 +16,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
@@ -35,34 +34,6 @@ public class HomeController {
 
     @Autowired
     UserService userService;
-
-    @GetMapping("/register")
-    public String showRegistrationPage(Model model){
-        model.addAttribute("user",new User());
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, @RequestParam("password") String pw){
-        System.out.println("pw: " + pw);
-        if(result.hasErrors()){
-//            model.addAttribute("user", user);
-            model.addAttribute("categories", categoryRepository.findAll());
-            return "register";
-        } else {
-            user.encode(pw);
-            userService.saveUser(user);
-            model.addAttribute("message", "New User Account Created");
-        }
-        return "login";
-    }
-
-    @RequestMapping("/login")
-    public String login(Model model){
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "login";
-    }
 
 
     @RequestMapping("/")
@@ -127,32 +98,6 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/addcategory")
-    public String categoryForm(Model model){
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("category", new Category());
-        return "category";
-    }
-
-    @PostMapping("/processcategory")
-    public String processSubject(@Valid Category category,
-                                 BindingResult result,
-                                 Model model){
-        if(result.hasErrors()){
-            for (ObjectError e : result.getAllErrors()){
-                System.out.println(e);
-            }
-            return "category";
-        }
-        if(categoryRepository.findByTitle(category.getTitle()) != null){
-            model.addAttribute("message", "You already have a category called " +
-                    category.getTitle() + "!" + " Try something else.");
-            return "category";
-        }
-        categoryRepository.save(category);
-        return "redirect:/";
-    }
-
     @RequestMapping("/detail/{id}")
     public String showCar(@PathVariable("id") long id, Model model){
         model.addAttribute("categories", categoryRepository.findAll());
@@ -189,32 +134,7 @@ public class HomeController {
         return "/";
     }
 
-    @RequestMapping("/detailcategory/{id}")
-    public String showCarsByCategory(@PathVariable("id") long id, Model model){
-        model.addAttribute("cars", carRepository.findAllByCategory_Id(id));
-        model.addAttribute("category", categoryRepository.findById(id).get());
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "categorylist";
-    }
 
-    @PostConstruct
-    public void fillTables(){
-       /* Category category = new Category();
-        category.setTitle("Compact");
-        categoryRepository.save(category);
-
-        category = new Category();
-        category.setTitle("Medium Size");
-        categoryRepository.save(category);
-
-        category = new Category();
-        category.setTitle("Full Size");
-        categoryRepository.save(category);
-
-        category = new Category();
-        category.setTitle("Luxury");
-        categoryRepository.save(category);*/
-    }
 }
 
 
